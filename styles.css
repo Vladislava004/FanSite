@@ -142,16 +142,23 @@ body {
     width: 100%;
 }
 
+/* Скрываем чекбокс */
 .menu-toggle {
     display: none;
 }
 
+/* Стили бургера */
 .burger {
     display: none;
-    font-size: 30px;
-    background: none;
+    font-size: 32px;
     cursor: pointer;
-    user-select: none;
+    background: none;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    color: white;
 }
 
 /* Header styles end */
@@ -312,14 +319,130 @@ span {
 }
 
 @media (max-width: 320px) {
-    /*About styles start*/
+    /*Header styles start*/
+     /* Показываем бургер */
+    .logo_title {
+        width: 15vw;
+    }
+
     .burger {
         display: block;
-        position: absolute;
-        right: 20px;
+        position: fixed;
         top: 15px;
-        font-size: 30px;
+        right: 15px;
+        font-size: 32px;
+        color: white;
+        background: none;
+        border: none;
+        z-index: 101; /* Выше меню */
         cursor: pointer;
     }
+
+    /* Скрываем меню по умолчанию */
+    .header_nav {
+        position: fixed; 
+        top: -100vh; /* Прячем меню за верхнюю границу */
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8); /* Чёрный цвет с прозрачностью 80% */
+        text-align: center;
+        transition: top 0.3s ease-in-out; /* Анимация появления */
+        z-index: 100;
+        padding-top: 50px; /* Чтобы пункты меню не прилипали к верху */
+        backdrop-filter: blur(5px); /* Размытие фона */
+    }
+
+    /* Когда чекбокс активен, показываем меню */
+    .menu-toggle:checked ~ .header_nav {
+        top: 0;
+    }
+
+    /* Стили списка */
+    .header_list {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .header_item {
+        margin: 10px 0;
+    }
+
+    .header_link {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /*Header styles end*/
+
+    /*About styles start*/
+    .about_container {
+        flex-direction: column;
+    }
+
+    .about_img {
+        width: 65vw;
+        height: 65vw;
+    }
+
+    .about_title {
+        font-size: 5vw;
+    }
+
+    .about_content {
+        font-size: 3vw;
+    }
     /*About styles end*/
+
+    /*Concerts styles start*/
+    .marquee {
+        font-size: 7vw;
+    }
+
+    .video-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    /*Concerts styles end*/
 }
+
+/*Footer styles start*/
+
+.telegram {
+    width: 6vw;
+}
+
+.tg {
+    height: 6vw;
+}
+
+.instagram {
+    width: 6vw;
+}
+
+.inst {
+    height: 6vw;
+}
+
+.youtube {
+    width: 6vw;
+}
+
+.youTube {
+    height: 6vw;
+}
+
+.sp {
+    font-size: 3vw;
+}
+
+.footer_content {
+    height: 12vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/*Footer styles end*/
