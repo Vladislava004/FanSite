@@ -320,7 +320,6 @@ span {
 
 @media (max-width: 320px) {
     /*Header styles start*/
-     /* Показываем бургер */
     .logo_title {
         width: 15vw;
     }
@@ -334,30 +333,27 @@ span {
         color: white;
         background: none;
         border: none;
-        z-index: 101; /* Выше меню */
+        z-index: 101;
         cursor: pointer;
     }
 
-    /* Скрываем меню по умолчанию */
     .header_nav {
         position: fixed; 
-        top: -100vh; /* Прячем меню за верхнюю границу */
+        top: -100vh;
         left: 0;
         width: 100%;
-        background: rgba(0, 0, 0, 0.8); /* Чёрный цвет с прозрачностью 80% */
+        background: rgba(0, 0, 0, 0.8);
         text-align: center;
-        transition: top 0.3s ease-in-out; /* Анимация появления */
+        transition: top 0.3s ease-in-out;
         z-index: 100;
-        padding-top: 50px; /* Чтобы пункты меню не прилипали к верху */
-        backdrop-filter: blur(5px); /* Размытие фона */
+        padding-top: 50px;
+        backdrop-filter: blur(5px);
     }
 
-    /* Когда чекбокс активен, показываем меню */
     .menu-toggle:checked ~ .header_nav {
         top: 0;
     }
 
-    /* Стили списка */
     .header_list {
         display: flex;
         flex-direction: column;
@@ -405,7 +401,7 @@ span {
         align-items: center;
     }
     /*Concerts styles end*/
-}
+
 
 /*Footer styles start*/
 
@@ -439,10 +435,7 @@ span {
 
 .footer_content {
     height: 12vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
-
 /*Footer styles end*/
+}
