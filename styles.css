@@ -313,5 +313,13 @@ span {
 
 @media (max-width: 320px) {
     /*About styles start*/
+    .burger {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 30px;
+        cursor: pointer;
+    }
     /*About styles end*/
 }
