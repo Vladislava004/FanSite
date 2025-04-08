@@ -135,7 +135,9 @@ body {
 }
 
 .albums {
-    background-color: black;
+    background-image: url('assets/discBack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .background {
@@ -154,23 +156,13 @@ body {
     gap: 45px;
 }
 
-.discography_heading {
-    color: #fcfcfc;
-    text-align: center;
-    font-family: Arial;
-    font-size: 35px;
-    font-style: normal;
-    line-height: 130%;
-    letter-spacing: 2.1px;
-}
-
 .card_container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px 40px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-top: 220px;
 }
 
 .card {
@@ -183,11 +175,20 @@ body {
     height: 450px;
     flex-shrink: 0;
     border-radius: 9px;
-    background: var(--color-light-s, #c1dde3);
+    background-image: url('assets/backCard.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    z-index: 1;
 }
 
 .name {
     font-size: 20px;
+    color: #FFF;
 }
 
 .img_card {
