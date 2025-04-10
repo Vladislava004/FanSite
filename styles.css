@@ -251,7 +251,7 @@ iframe {
 
 /*Footer styles start*/
 footer {
-    background-color: #1b1c1c;
+    background-color: black;
 }
 
 span {
@@ -301,9 +301,9 @@ span {
 }
 /*Footer styles end*/
 
-@media (max-width: 768px) {
+/*@media (min-width: 768px) {
 
-    /*About styles start*/
+    About styles start
     .header_link {
         font-size: 1.5vw;
     }
@@ -315,10 +315,11 @@ span {
     .about_container {
         align-items: center;
     }
-    /*About styles end*/
-}
+    About styles end
+}*/
 
-@media (max-width: 320px) {
+
+@media (max-width: 768px) {
     /*Header styles start*/
     .logo_title {
         width: 15vw;
@@ -375,6 +376,7 @@ span {
     /*About styles start*/
     .about_container {
         flex-direction: column;
+        align-items: center;
     }
 
     .about_img {
