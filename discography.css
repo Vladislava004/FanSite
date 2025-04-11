@@ -170,16 +170,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 45px;
+    gap: 2.34vw;
 }
 
 .card_container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px 40px;
-    margin-bottom: 40px;
-    margin-top: 220px;
+    gap: 1.56vw 2.08vw;
+    margin-bottom: 2.08vw;
+    margin-top: 17vw;
 }
 
 .card {
@@ -302,7 +302,7 @@ span {
     /*Header styles end*/
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     /*Header styles start*/
     .logo_title {
         width: 15vw;

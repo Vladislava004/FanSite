@@ -173,13 +173,13 @@ body {
 }
 
 .poster_title {
-    font-size: 34px;
+    font-size: 2.2vw;
     font-weight: 800;
     color: #FFF;
 }
 
 .poster_title_content_down {
-    font-size: 19px;
+    font-size: 1.5vw;
     color: #FFF;
     font-weight: 500;
 }
@@ -187,12 +187,12 @@ body {
 .poster_title_content {
     display: flex;
     flex-direction: column;
-    margin-right: 50px;
+    margin-right: 2.60vw;
     line-height: 35px;
 }
 
 .poster_container {
-    width: 1000px;
+    width: 52.08vw;
 }
 
 .poster_content {
@@ -204,12 +204,12 @@ body {
 .poster_button {
     border-color: #69edf0;
     border-width: 3px;
-    font-size: 16px;
+    font-size: 1vw;
     color: #FFF;
     background-color: black;
     font-weight: 600;
-    width: 228px;
-    height: 61px;
+    width: 13vw;
+    height: 4vw;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 .poster_button:hover {
@@ -282,7 +282,7 @@ span {
     /*Header styles end*/
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     /*Header styles start*/
     .logo_title {
         width: 15vw;
@@ -335,6 +335,23 @@ span {
     }
     /*Header styles end*/
 
+    .poster_content {
+        flex-direction: column;
+    }
+
+    .poster_title {
+        font-size: 5vw;
+    }
+    
+    .poster_title_content_down {
+        font-size: 3vw;
+    }
+
+    .poster_button {
+        font-size: 2vw;
+        width: 15vw;
+        height: 5vw;
+    }
 /*Footer styles start*/
 
 .telegram {
