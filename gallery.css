@@ -1,0 +1,372 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Arial;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+/* Header styles start */
+
+.wrapper {
+    max-width: 85vw;
+    margin: 0 auto;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.563vw;
+}
+
+.header_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header_item {
+    margin-right: 1.823vw;
+}
+
+.header_item:last-child {
+    margin-right: 0;
+}
+
+.logo_title {
+    width: 10vw;
+}
+
+.header_link {
+    position: relative;
+    color: var(--Text-Inverse, #FFF);
+    text-decoration: none;
+    font-size: 1.3vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    transition: color 0.3s ease-in-out;
+}
+
+.header_link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #69edf0, #69ccf0);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.header_link:hover {
+    color: #69edf0;
+}
+
+.header_link:hover::after {
+    width: 100%;
+}
+
+.gallery {
+    background-image: url('assets/discBack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home {
+    background-color: black;
+}
+
+.background {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.burger {
+    display: none;
+    font-size: 32px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    color: white;
+}
+
+/* Header styles end */
+
+/* Gallery styles start */
+
+.gallery_text {
+    color: var(--Text-Inverse, #FFF);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.3vw;
+    text-align: center;
+}
+
+.gallery_content {
+    padding-top: 12vw;
+}
+
+.photo15 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vw;
+    height: 30vw;
+    padding-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.hover-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vw;
+    padding: 2vw;
+}
+.hover-gallery img {
+    width: 27vw;
+    height: 17vw;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.hover-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Gallery styles end */
+
+/*Footer styles start*/
+footer {
+    background-color: black;
+}
+
+span {
+    color: #FFF;
+}
+
+.telegram {
+    width: 3vw;
+}
+
+.tg {
+    height: 3vw;
+}
+
+.instagram {
+    width: 3vw;
+}
+
+.inst {
+    height: 3vw;
+}
+
+.youtube {
+    width: 3vw;
+}
+
+.youTube {
+    height: 3vw;
+}
+
+.sp {
+    font-size: 1.2vw;
+}
+
+.footer_content {
+    height: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contacts {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1vw;
+}
+/*Footer styles end*/
+
+@media (max-width: 768px) {
+    /*Header styles start*/
+    .logo_title {
+        width: 15vw;
+    }
+
+    .burger {
+        display: block;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        font-size: 32px;
+        color: white;
+        background: none;
+        border: none;
+        z-index: 101;
+        cursor: pointer;
+    }
+
+    .header_nav {
+        position: fixed;
+        top: -100vh;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        transition: top 0.3s ease-in-out;
+        z-index: 100;
+        padding-top: 50px;
+        backdrop-filter: blur(5px);
+    }
+
+    .menu-toggle:checked ~ .header_nav {
+        top: 0;
+    }
+
+    .header_list {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .header_item {
+        margin: 10px 0;
+    }
+
+    .header_link {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /*Header styles end*/
+    .photo15 {
+        width: 70vw;
+        height: 50vw;
+    }
+
+    .hover-gallery img {
+        width: 60vw;
+        height: 40vw;
+    }
+
+    .gallery_text {
+        font-size: 3vw;
+    }
+
+    .gallery_content {
+        padding-top: 18vw;
+    }
+
+/*Footer styles start*/
+
+.telegram {
+    width: 6vw;
+}
+
+.tg {
+    height: 6vw;
+}
+
+.instagram {
+    width: 6vw;
+}
+
+.inst {
+    height: 6vw;
+}
+
+.youtube {
+    width: 6vw;
+}
+
+.youTube {
+    height: 6vw;
+}
+
+.sp {
+    font-size: 3vw;
+}
+
+.footer_content {
+    height: 12vw;
+}
+
+/*Footer styles end*/
+}
+
