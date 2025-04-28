@@ -148,12 +148,10 @@ body {
     width: 100%;
 }
 
-/* Скрываем чекбокс */
 .menu-toggle {
     display: none;
 }
 
-/* Стили бургера */
 .burger {
     display: none;
     font-size: 32px;

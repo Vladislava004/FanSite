@@ -142,12 +142,10 @@ body {
     width: 100%;
 }
 
-/* Скрываем чекбокс */
 .menu-toggle {
     display: none;
 }
 
-/* Стили бургера */
 .burger {
     display: none;
     font-size: 32px;
@@ -216,9 +214,6 @@ body {
     background-color: #69edf0;
 }
 
-.poster_button:hover {
-    
-}
 /* Poster styles end */
 
 /*Footer styles start*/
