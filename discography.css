@@ -355,6 +355,10 @@ span {
     }
     /*Header styles end*/
 
+    .card_container {
+        margin-top: 21vw;
+    }
+
 /*Footer styles start*/
 
 .telegram {
