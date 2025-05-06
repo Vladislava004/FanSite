@@ -43,13 +43,13 @@
                 <div class="news_container">
                     <h1>Новости</h1>
                     <div class="news-form">
-                        <input type="text" id="title" placeholder="Заголовок" maxlength="150" oninput="updateCounters()">
+                        <input type="text" id="title" placeholder="Заголовок" maxlength="150" oninput="sanitizeInput(this); updateCounters()">
                         <div id="titleCounter">0/150</div>
-                        <textarea id="content" placeholder="Содержание" maxlength="700" oninput="updateCounters()"></textarea>
+                        <textarea id="content" placeholder="Содержание" maxlength="700" oninput="sanitizeInput(this); updateCounters()"></textarea>
                         <div id="contentCounter">0/700</div>
                         <button onclick="addNews()">Добавить новость</button>
                     </div>
-                    <input type="text" id="search" placeholder="Поиск..." maxlength="200" oninput="validateSearch(); renderNews()">
+                    <input type="text" id="search" placeholder="Поиск..." maxlength="200" oninput="sanitizeInput(this); validateSearch(); renderNews()">
                     <select id="sort" onchange="renderNews()">
                         <option value="time_desc">Сначала новые</option>
                         <option value="time_asc">Сначала старые</option>
@@ -86,51 +86,104 @@
         </div>
     </footer>
     <script>
-        let news = JSON.parse(localStorage.getItem('news')) || [];
+        function preventLeadingSpace(e) {
+        const input = e.target;
+        if (
+            e.key === " " &&
+            input.selectionStart === 0 &&
+            input.selectionEnd === 0 &&
+            input.value.length === 0
+        ) {
+            e.preventDefault();
+        }
+    }
 
+    function attachSpacePrevention() {
+        const inputs = document.querySelectorAll('#title, #content, #search, [id^="editTitle-"], [id^="editContent-"]');
+        inputs.forEach(input => {
+            input.removeEventListener('keydown', preventLeadingSpace); // На всякий случай, чтобы не дублировалось
+            input.addEventListener('keydown', preventLeadingSpace);
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputs = [document.getElementById('title'), document.getElementById('content'), document.getElementById('search')];
+        inputs.forEach(input => {
+            input.addEventListener('keydown', preventLeadingSpace);
+        });
+    });
+
+        let news = JSON.parse(localStorage.getItem('news')) || [];
+    
         function saveNews() {
             localStorage.setItem('news', JSON.stringify(news));
         }
+    
+        function sanitizeInput(input) {
+    let value = input.value;
 
+    // Удаляем множественные пробелы внутри текста, но не трогаем начальные пробелы
+    value = value.replace(/\s{2,}/g, ' ');
+
+    const maxLength = input.getAttribute('maxlength');
+    if (maxLength && value.length > maxLength) {
+        value = value.slice(0, maxLength);
+    }
+
+    input.value = value;
+}
+
+    
         function addNews() {
+            
             const titleInput = document.getElementById('title');
             const contentInput = document.getElementById('content');
-            let title = titleInput.value.trim();
-            let content = contentInput.value.trim();
-            if (!title || !content || title.length === 0 || content.length === 0) {
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            let title = titleInput.value.trimStart().trimEnd();
+            let content = contentInput.value.trimStart().trimEnd();
+
+    
+            if (!title || !content) {
                 alert('Заголовок и содержание не могут быть пустыми или состоять только из пробелов.');
                 return;
             }
+    
             if (title.length > 150) {
                 alert('Заголовок не должен превышать 150 символов.');
                 return;
             }
+    
             if (content.length > 700) {
-                alert('Содержание новости не должно превышать 700 символов.');
+                alert('Содержание не должно превышать 700 символов.');
                 return;
             }
+    
             news.push({
                 id: Date.now(),
                 title,
                 content,
                 date: new Date().toISOString()
             });
+    
             saveNews();
             renderNews();
             titleInput.value = '';
             contentInput.value = '';
             updateCounters();
-        }
 
+            
+        }
+    
         function deleteNews(id) {
-            const confirmDelete = confirm("Вы действительно хотите удалить эту новость?");
-            if (confirmDelete) {
+            if (confirm("Вы действительно хотите удалить эту новость?")) {
                 news = news.filter(item => item.id !== id);
                 saveNews();
                 renderNews();
             }
         }
-
+    
         function editNews(id) {
             const index = news.findIndex(n => n.id === id);
             if (index !== -1) {
@@ -138,26 +191,31 @@
                 renderNews();
             }
         }
+    
+        function saveEditedNews(id) {
+            const titleInput = document.getElementById(`editTitle-${id}`);
+            const contentInput = document.getElementById(`editContent-${id}`);
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            const title = titleInput.value.trimStart().trimEnd();
+            const content = contentInput.value.trimStart().trimEnd();
 
-    function saveEditedNews(id) {
-        const title = document.getElementById(`editTitle-${id}`).value.trim();
-        const content = document.getElementById(`editContent-${id}`).value.trim();
-
-        if (!title || !content || title.length > 150 || content.length > 700) {
-            alert("Проверьте правильность ввода. Заголовок до 150 символов, содержание до 700.");
-            return;
+    
+            if (!title || !content || title.length > 150 || content.length > 700) {
+                alert("Проверьте правильность ввода. Заголовок до 150 символов, содержание до 700.");
+                return;
+            }
+    
+            const index = news.findIndex(n => n.id === id);
+            if (index !== -1) {
+                news[index].title = title;
+                news[index].content = content;
+                delete news[index].isEditing;
+                saveNews();
+                renderNews();
+            }
         }
-
-    const index = news.findIndex(n => n.id === id);
-        if (index !== -1) {
-            news[index].title = title;
-            news[index].content = content;
-            delete news[index].isEditing;
-            saveNews();
-            renderNews();
-        }
-    }
-
+    
         function cancelEdit(id) {
             const index = news.findIndex(n => n.id === id);
             if (index !== -1) {
@@ -165,12 +223,12 @@
                 renderNews();
             }
         }
-
+    
         function renderNews() {
             const container = document.getElementById('newsContainer');
             const search = document.getElementById('search').value.toLowerCase();
             const sort = document.getElementById('sort').value;
-
+    
             let filtered = news.filter(n => {
                 const formattedDate = formatDate(n.date).toLowerCase();
                 return (
@@ -179,22 +237,22 @@
                     formattedDate.includes(search)
                 );
             });
-
+    
             if (sort === 'time_desc') filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
             if (sort === 'time_asc') filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
             if (sort === 'title_asc') filtered.sort((a, b) => a.title.localeCompare(b.title));
             if (sort === 'title_desc') filtered.sort((a, b) => b.title.localeCompare(a.title));
-
+    
             container.innerHTML = filtered.map(n => {
                 if (n.isEditing) {
                     return `
                         <div class="news-item">
                             <input type="text" id="editTitle-${n.id}" value="${n.title}" maxlength="150"
-                                oninput="updateEditCounters(${n.id})"
+                                oninput="sanitizeInput(this); updateEditCounters(${n.id})"
                                 style="width: 100%; padding: 8px; font-size: 18px; margin-bottom: 8px;" />
                             <div id="editTitleCounter-${n.id}">${n.title.length}/150</div>
                             <textarea id="editContent-${n.id}" maxlength="700"
-                                oninput="updateEditCounters(${n.id})"
+                                oninput="sanitizeInput(this); updateEditCounters(${n.id})"
                                 style="width: 100%; height: 200px; padding: 8px; font-size: 16px; margin-bottom: 8px;">${n.content}</textarea>
                             <div id="editContentCounter-${n.id}">${n.content.length}/700</div>
                             <button onclick="saveEditedNews(${n.id})">Сохранить</button>
@@ -215,25 +273,29 @@
                     `;
                 }
             }).join('');
+
+            attachSpacePrevention();
+
         }
-
-
+    
+        function updateCounters() {
+            const title = document.getElementById('title');
+            const content = document.getElementById('content');
+            sanitizeInput(title);
+            sanitizeInput(content);
+            document.getElementById('titleCounter').textContent = `${title.value.length}/150`;
+            document.getElementById('contentCounter').textContent = `${content.value.length}/700`;
+        }
+    
         function updateEditCounters(id) {
             const titleInput = document.getElementById(`editTitle-${id}`);
             const contentInput = document.getElementById(`editContent-${id}`);
-
-            const titleCounter = document.getElementById(`editTitleCounter-${id}`);
-            const contentCounter = document.getElementById(`editContentCounter-${id}`);
-
-            if (titleInput && titleCounter) {
-                titleCounter.textContent = `${titleInput.value.length}/150`;
-            }
-
-            if (contentInput && contentCounter) {
-                contentCounter.textContent = `${contentInput.value.length}/700`;
-            }
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            document.getElementById(`editTitleCounter-${id}`).textContent = `${titleInput.value.length}/150`;
+            document.getElementById(`editContentCounter-${id}`).textContent = `${contentInput.value.length}/700`;
         }
-
+    
         function formatDate(dateString) {
             const date = new Date(dateString);
             const day = String(date.getDate()).padStart(2, '0');
@@ -243,31 +305,15 @@
             const minutes = String(date.getMinutes()).padStart(2, '0');
             return `${day}.${month}.${year} ${hours}:${minutes}`;
         }
-
-        function updateCounters() {
-            const title = document.getElementById('title');
-            const content = document.getElementById('content');
-            const titleCounter = document.getElementById('titleCounter');
-            const contentCounter = document.getElementById('contentCounter');
-
-            titleCounter.textContent = `${title.value.length}/150`;
-            contentCounter.textContent = `${content.value.length}/700`;
-        }
-        updateCounters();
-        renderNews();
-
+    
         function validateSearch() {
             const searchInput = document.getElementById('search');
-            let value = searchInput.value;
-            value = value.replace(/^\s+/, '');
-            value = value.replace(/\s{2,}/g, ' ');
-            if (value.length > 200) {
-                value = value.slice(0, 200);
-            }
-            searchInput.value = value;
+            sanitizeInput(searchInput);
         }
-
-
+    
+        updateCounters();
+        renderNews();
     </script>
+    
 </body>
 </html>
