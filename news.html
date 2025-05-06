@@ -86,22 +86,23 @@
         </div>
     </footer>
     <script>
-        function preventLeadingSpace(e) {
-        const input = e.target;
+    function preventLeadingSpace(e) {
+    const input = e.target;
+
         if (
             e.key === " " &&
             input.selectionStart === 0 &&
-            input.selectionEnd === 0 &&
-            input.value.length === 0
+            input.selectionEnd === 0
         ) {
             e.preventDefault();
         }
     }
 
+
     function attachSpacePrevention() {
         const inputs = document.querySelectorAll('#title, #content, #search, [id^="editTitle-"], [id^="editContent-"]');
         inputs.forEach(input => {
-            input.removeEventListener('keydown', preventLeadingSpace); // На всякий случай, чтобы не дублировалось
+            input.removeEventListener('keydown', preventLeadingSpace);
             input.addEventListener('keydown', preventLeadingSpace);
         });
     }
@@ -123,16 +124,15 @@
         function sanitizeInput(input) {
     let value = input.value;
 
-    // Удаляем множественные пробелы внутри текста, но не трогаем начальные пробелы
     value = value.replace(/\s{2,}/g, ' ');
 
     const maxLength = input.getAttribute('maxlength');
-    if (maxLength && value.length > maxLength) {
-        value = value.slice(0, maxLength);
-    }
+        if (maxLength && value.length > maxLength) {
+            value = value.slice(0, maxLength);
+        }
 
-    input.value = value;
-}
+        input.value = value;
+    }
 
     
         function addNews() {
