@@ -185,6 +185,8 @@
         }
     
         function editNews(id) {
+            news.forEach(n => delete n.isEditing);
+
             const index = news.findIndex(n => n.id === id);
             if (index !== -1) {
                 news[index].isEditing = true;
