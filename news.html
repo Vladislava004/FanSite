@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="news.css">
+    <title>Новости</title>
+</head>
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <div class="header_wrapper">
+                <a href="#!" class="logo">
+                    <img src="assets/logo.png" alt="ЛСП" class="logo_title">
+                </a>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                <label for="menu-toggle" class="burger">&#9776;</label>
+                <nav class="header_nav">
+                    <ul class="header_list">
+                        <li class="header_item">
+                            <a href="index.html" class="header_link">Главная</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="discography.html" class="header_link">Дискография</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="concerts.html" class="header_link">Концерты</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="fan.html" class="header_link">Фан клуб</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="gallery.html" class="header_link">Галерея</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="news">
+            <div class="wrapper">
+                <div class="news_container">
+                    <h1>Новости</h1>
+                    <div class="news-form">
+                        <input type="text" id="title" placeholder="Заголовок" maxlength="150" oninput="sanitizeInput(this); updateCounters()">
+                        <div id="titleCounter">0/150</div>
+                        <textarea id="content" placeholder="Содержание" maxlength="700" oninput="sanitizeInput(this); updateCounters()"></textarea>
+                        <div id="contentCounter">0/700</div>
+                        <button onclick="addNews()">Добавить новость</button>
+                    </div>
+                    <input type="text" id="search" placeholder="Поиск..." maxlength="200" oninput="sanitizeInput(this); validateSearch(); renderNews()">
+                    <select id="sort" onchange="renderNews()">
+                        <option value="time_desc">Сначала новые</option>
+                        <option value="time_asc">Сначала старые</option>
+                        <option value="title_asc">По названию (А-Я)</option>
+                        <option value="title_desc">По названию (Я-А)</option>
+                    </select>
+                    <div id="newsContainer"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="wrapper">
+            <div class="footer_content">
+                <span class="sp">© ЛСП 2025</span>
+                <div class="contacts">
+                    <div class="tg">
+                        <a href="https://t.me/lspof">
+                            <img src="assets/icon_telegram.png" alt="telegram" class="telegram">
+                        </a>
+                    </div>
+                    <div class="inst">
+                        <a href="https://www.instagram.com/lspolegi?igsh=MXBvNm43NTZqeTFyYw==">
+                            <img src="assets/icon_inst.png" alt="instagram" class="instagram">
+                        </a>
+                    </div>
+                    <div class="youTube">
+                        <a href="https://www.youtube.com/channel/UCr19_2h5_vUv6T4Gbo4PU7w">
+                            <img src="assets/icon_youtube.png" alt="youtube" class="youtube">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    function preventLeadingSpace(e) {
+    const input = e.target;
+
+        if (
+            e.key === " " &&
+            input.selectionStart === 0 &&
+            input.selectionEnd === 0
+        ) {
+            e.preventDefault();
+        }
+    }
+
+
+    function attachSpacePrevention() {
+        const inputs = document.querySelectorAll('#title, #content, #search, [id^="editTitle-"], [id^="editContent-"]');
+        inputs.forEach(input => {
+            input.removeEventListener('keydown', preventLeadingSpace);
+            input.addEventListener('keydown', preventLeadingSpace);
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputs = [document.getElementById('title'), document.getElementById('content'), document.getElementById('search')];
+        inputs.forEach(input => {
+            input.addEventListener('keydown', preventLeadingSpace);
+        });
+    });
+
+        let news = JSON.parse(localStorage.getItem('news')) || [];
+    
+        function saveNews() {
+            localStorage.setItem('news', JSON.stringify(news));
+        }
+    
+        function sanitizeInput(input) {
+    let value = input.value;
+
+    value = value.replace(/\s{2,}/g, ' ');
+
+    const maxLength = input.getAttribute('maxlength');
+        if (maxLength && value.length > maxLength) {
+            value = value.slice(0, maxLength);
+        }
+
+        input.value = value;
+    }
+
+    
+        function addNews() {
+            
+            const titleInput = document.getElementById('title');
+            const contentInput = document.getElementById('content');
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            let title = titleInput.value.trimStart().trimEnd();
+            let content = contentInput.value.trimStart().trimEnd();
+
+    
+            if (!title || !content) {
+                alert('Заголовок и содержание не могут быть пустыми или состоять только из пробелов.');
+                return;
+            }
+    
+            if (title.length > 150) {
+                alert('Заголовок не должен превышать 150 символов.');
+                return;
+            }
+    
+            if (content.length > 700) {
+                alert('Содержание не должно превышать 700 символов.');
+                return;
+            }
+    
+            news.push({
+                id: Date.now(),
+                title,
+                content,
+                date: new Date().toISOString()
+            });
+    
+            saveNews();
+            renderNews();
+            titleInput.value = '';
+            contentInput.value = '';
+            updateCounters();
+
+            
+        }
+    
+        function deleteNews(id) {
+            if (confirm("Вы действительно хотите удалить эту новость?")) {
+                news = news.filter(item => item.id !== id);
+                saveNews();
+                renderNews();
+            }
+        }
+    
+        function editNews(id) {
+            news.forEach(n => delete n.isEditing);
+
+            const index = news.findIndex(n => n.id === id);
+            if (index !== -1) {
+                news[index].isEditing = true;
+                renderNews();
+            }
+        }
+    
+        function saveEditedNews(id) {
+            const titleInput = document.getElementById(`editTitle-${id}`);
+            const contentInput = document.getElementById(`editContent-${id}`);
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            const title = titleInput.value.trimStart().trimEnd();
+            const content = contentInput.value.trimStart().trimEnd();
+
+    
+            if (!title || !content || title.length > 150 || content.length > 700) {
+                alert("Проверьте правильность ввода. Заголовок до 150 символов, содержание до 700.");
+                return;
+            }
+    
+            const index = news.findIndex(n => n.id === id);
+            if (index !== -1) {
+                news[index].title = title;
+                news[index].content = content;
+                delete news[index].isEditing;
+                saveNews();
+                renderNews();
+            }
+        }
+    
+        function cancelEdit(id) {
+            const index = news.findIndex(n => n.id === id);
+            if (index !== -1) {
+                delete news[index].isEditing;
+                renderNews();
+            }
+        }
+    
+        function renderNews() {
+            const container = document.getElementById('newsContainer');
+            const search = document.getElementById('search').value.toLowerCase();
+            const sort = document.getElementById('sort').value;
+    
+            let filtered = news.filter(n => {
+                const formattedDate = formatDate(n.date).toLowerCase();
+                return (
+                    n.title.toLowerCase().includes(search) ||
+                    n.content.toLowerCase().includes(search) ||
+                    formattedDate.includes(search)
+                );
+            });
+    
+            if (sort === 'time_desc') filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (sort === 'time_asc') filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+            if (sort === 'title_asc') filtered.sort((a, b) => a.title.localeCompare(b.title));
+            if (sort === 'title_desc') filtered.sort((a, b) => b.title.localeCompare(a.title));
+    
+            container.innerHTML = filtered.map(n => {
+                if (n.isEditing) {
+                    return `
+                        <div class="news-item">
+                            <input type="text" id="editTitle-${n.id}" value="${n.title}" maxlength="150"
+                                oninput="sanitizeInput(this); updateEditCounters(${n.id})"
+                                style="width: 100%; padding: 8px; font-size: 18px; margin-bottom: 8px;" />
+                            <div id="editTitleCounter-${n.id}">${n.title.length}/150</div>
+                            <textarea id="editContent-${n.id}" maxlength="700"
+                                oninput="sanitizeInput(this); updateEditCounters(${n.id})"
+                                style="width: 100%; height: 200px; padding: 8px; font-size: 16px; margin-bottom: 8px;">${n.content}</textarea>
+                            <div id="editContentCounter-${n.id}">${n.content.length}/700</div>
+                            <button onclick="saveEditedNews(${n.id})">Сохранить</button>
+                            <button onclick="cancelEdit(${n.id})">Отмена</button>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="news-item">
+                            <h3>${n.title}</h3>
+                            <p>${n.content.replace(/\n/g, '<br>')}</p>
+                            <small>Опубликовано: ${formatDate(n.date)}</small>
+                            <div class="controls">
+                                <button onclick="editNews(${n.id})">Редактировать</button>
+                                <button onclick="deleteNews(${n.id})">Удалить</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            attachSpacePrevention();
+
+        }
+    
+        function updateCounters() {
+            const title = document.getElementById('title');
+            const content = document.getElementById('content');
+            sanitizeInput(title);
+            sanitizeInput(content);
+            document.getElementById('titleCounter').textContent = `${title.value.length}/150`;
+            document.getElementById('contentCounter').textContent = `${content.value.length}/700`;
+        }
+    
+        function updateEditCounters(id) {
+            const titleInput = document.getElementById(`editTitle-${id}`);
+            const contentInput = document.getElementById(`editContent-${id}`);
+            sanitizeInput(titleInput);
+            sanitizeInput(contentInput);
+            document.getElementById(`editTitleCounter-${id}`).textContent = `${titleInput.value.length}/150`;
+            document.getElementById(`editContentCounter-${id}`).textContent = `${contentInput.value.length}/700`;
+        }
+    
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${day}.${month}.${year} ${hours}:${minutes}`;
+        }
+    
+        function validateSearch() {
+            const searchInput = document.getElementById('search');
+            sanitizeInput(searchInput);
+        }
+    
+        updateCounters();
+        renderNews();
+    </script>
+    
+</body>
+</html>

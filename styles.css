@@ -1,0 +1,424 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Arial;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+/* Header styles start */
+
+.wrapper {
+    max-width: 85vw;
+    margin: 0 auto;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0000008a;
+}
+
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.563vw;
+}
+
+.header_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header_item {
+    margin-right: 1.823vw;
+}
+
+.header_item:last-child {
+    margin-right: 0;
+}
+
+.logo_title {
+    width: 10vw;
+}
+
+.header_link {
+    position: relative;
+    color: var(--Text-Inverse, #FFF);
+    text-decoration: none;
+    font-size: 1.3vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    transition: color 0.3s ease-in-out;
+}
+
+.header_link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #69edf0, #69ccf0);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.header_link:hover {
+    color: #69edf0;
+}
+
+.header_link:hover::after {
+    width: 100%;
+}
+
+.home {
+    background-color: black;
+}
+
+.background {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.burger {
+    display: none;
+    font-size: 32px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    color: white;
+}
+
+/* Header styles end */
+
+/*About styles start*/
+.about {
+    background-color: black;
+    padding-top: 1.042vw;
+    padding-bottom: 1.042vw;
+}
+
+.about_img {
+    width: 45vw;
+    height: 45vw;
+}
+
+.about_container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 1.823vw;
+}
+
+.about_content {
+    color: var(--Text-Inverse, #FFF);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.3vw;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 100%;
+    padding-top: 2vw;
+}
+
+.about_title {
+    font-size: 3vw;
+    text-align: center;
+}
+/*About styles end*/
+
+/*Concerts styles start*/
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #b0d9d9;
+    color: black;
+    font-size: 2.604vw;
+    font-weight: 200;
+    padding: 2.083vw 0;
+    text-shadow:
+    1px 1px 2px #0afcfc,
+    0 0 1em white,
+    0 0 0.2em white;
+}
+.marquee-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 25s linear infinite;
+}
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 1.823vw;
+    height: 50vh;
+    
+    margin: 0 auto;
+    padding-top: 1.042vw;
+}
+
+iframe {
+    width: 50vw;
+    height: 100%;
+}
+
+.concerts {
+    background-color: black;
+    padding-bottom: 1.042vw;
+}
+/*Concerts styles end*/
+
+/*Footer styles start*/
+footer {
+    background-color: black;
+}
+
+span {
+    color: #FFF;
+}
+
+.telegram {
+    width: 3vw;
+}
+
+.tg {
+    height: 3vw;
+}
+
+.instagram {
+    width: 3vw;
+}
+
+.inst {
+    height: 3vw;
+}
+
+.youtube {
+    width: 3vw;
+}
+
+.youTube {
+    height: 3vw;
+}
+
+.sp {
+    font-size: 1.2vw;
+}
+
+.footer_content {
+    height: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contacts {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1vw;
+}
+/*Footer styles end*/
+
+@media (max-width: 768px) {
+    /*Header styles start*/
+    .logo_title {
+        width: 15vw;
+    }
+
+    .burger {
+        display: block;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        font-size: 32px;
+        color: white;
+        background: none;
+        border: none;
+        z-index: 101;
+        cursor: pointer;
+    }
+
+    .header_nav {
+        position: fixed; 
+        top: -100vh;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        transition: top 0.3s ease-in-out;
+        z-index: 100;
+        padding-top: 50px;
+        backdrop-filter: blur(5px);
+    }
+
+    .menu-toggle:checked ~ .header_nav {
+        top: 0;
+    }
+
+    .header_list {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .header_item {
+        margin: 10px 0;
+    }
+
+    .header_link {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /*Header styles end*/
+
+    /*About styles start*/
+    .about_container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about_img {
+        width: 65vw;
+        height: 65vw;
+    }
+
+    .about_title {
+        font-size: 5vw;
+    }
+
+    .about_content {
+        font-size: 3vw;
+    }
+    /*About styles end*/
+
+    /*Concerts styles start*/
+    .marquee {
+        font-size: 7vw;
+    }
+
+    .video-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    /*Concerts styles end*/
+
+
+/*Footer styles start*/
+
+.telegram {
+    width: 6vw;
+}
+
+.tg {
+    height: 6vw;
+}
+
+.instagram {
+    width: 6vw;
+}
+
+.inst {
+    height: 6vw;
+}
+
+.youtube {
+    width: 6vw;
+}
+
+.youTube {
+    height: 6vw;
+}
+
+.sp {
+    font-size: 3vw;
+}
+
+.footer_content {
+    height: 12vw;
+}
+
+/*Footer styles end*/
+}

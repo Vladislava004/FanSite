@@ -1,0 +1,432 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Arial;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+/* Header styles start */
+
+.wrapper {
+    max-width: 85vw;
+    margin: 0 auto;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0000008a;
+}
+
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.563vw;
+}
+
+.header_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header_item {
+    margin-right: 1.823vw;
+}
+
+.header_item:last-child {
+    margin-right: 0;
+}
+
+.logo_title {
+    width: 10vw;
+}
+
+.header_link {
+    position: relative;
+    color: var(--Text-Inverse, #FFF);
+    text-decoration: none;
+    font-size: 1.3vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    transition: color 0.3s ease-in-out;
+}
+
+.header_link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #69edf0, #69ccf0);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.header_link:hover {
+    color: #69edf0;
+}
+
+.header_link:hover::after {
+    width: 100%;
+}
+
+.home {
+    background-color: black;
+}
+
+.background {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.burger {
+    display: none;
+    font-size: 32px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    color: white;
+}
+
+/* Header styles end */
+
+.news {
+    background-image: url('assets/discBack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: #fff;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.news_container {
+    padding-top: 12vw;
+}
+
+.news-form input, .news-form textarea, .news-form button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+}
+.news-item {
+    border: 1px solid #69edf0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    background: #222;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.news h1 {
+    font-size: 3vw;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(105, 237, 240, 0.6);
+}
+
+.news-form {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.news-form input[type="text"],
+.news-form textarea {
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #69edf0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.news-form button {
+    background-color: #69edf0;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.news-form button:hover {
+    background-color: #57d0dc;
+}
+
+#search, #sort {
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #69edf0;
+    border-radius: 5px;
+}
+
+.news-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #69edf0;
+}
+
+.news-item p {
+    font-size: 1em;
+    line-height: 1.4em;
+    margin-bottom: 10px;
+}
+
+.news-item small {
+    display: block;
+    font-size: 0.85em;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.controls button {
+    background-color: #69edf0;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+    background-color: #57d0dc;
+}
+
+#titleCounter, #contentCounter, #editTitleCounter, #editContentCounter {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+
+/*Footer styles start*/
+footer {
+    background-color: black;
+}
+
+span {
+    color: #FFF;
+}
+
+.telegram {
+    width: 3vw;
+}
+
+.tg {
+    height: 3vw;
+}
+
+.instagram {
+    width: 3vw;
+}
+
+.inst {
+    height: 3vw;
+}
+
+.youtube {
+    width: 3vw;
+}
+
+.youTube {
+    height: 3vw;
+}
+
+.sp {
+    font-size: 1.2vw;
+}
+
+.footer_content {
+    height: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contacts {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1vw;
+}
+/*Footer styles end*/
+
+@media (max-width: 768px) {
+    /*Header styles start*/
+    .logo_title {
+        width: 15vw;
+    }
+
+    .burger {
+        display: block;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        font-size: 32px;
+        color: white;
+        background: none;
+        border: none;
+        z-index: 101;
+        cursor: pointer;
+    }
+
+    .header_nav {
+        position: fixed; 
+        top: -100vh;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        transition: top 0.3s ease-in-out;
+        z-index: 100;
+        padding-top: 50px;
+        backdrop-filter: blur(5px);
+    }
+
+    .menu-toggle:checked ~ .header_nav {
+        top: 0;
+    }
+
+    .header_list {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .header_item {
+        margin: 10px 0;
+    }
+
+    .header_link {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /*Header styles end*/
+
+
+/*Footer styles start*/
+
+.telegram {
+    width: 6vw;
+}
+
+.tg {
+    height: 6vw;
+}
+
+.instagram {
+    width: 6vw;
+}
+
+.inst {
+    height: 6vw;
+}
+
+.youtube {
+    width: 6vw;
+}
+
+.youTube {
+    height: 6vw;
+}
+
+.sp {
+    font-size: 3vw;
+}
+
+.footer_content {
+    height: 12vw;
+}
+
+/*Footer styles end*/
+}
